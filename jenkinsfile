@@ -3,10 +3,14 @@
 node ('Ansible control server') {
 
 stage('Deployment'){
-   checkout([$class: 'GitSCM', branches: [[name: 'refs/tags/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', refspec: '+refs/tags/*:refs/remotes/origin/tags/*', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])  
+   checkout([$class: 'GitSCM', branches: [[name: 'refs/tags/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', refspec: '+refs/tags/*:refs/remotes/origin/tags/*', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])
+   git url: 'https://github.com/abhishekpolavarpu/ansibletest'
+   env.GIT_TAG_NAME = gitTagName()
+   env.GIT_TAG_MESSAGE = gitTagMessage()
+
 }
 stage('archiving'){
- zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: '1.zip'
+ zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: 'env.GIT_TAG_NAME.zip'
  sh ' sudo cp *.zip /home/jenkins/Ansible/'
  sh 'sudo rm -rf *'
 }
