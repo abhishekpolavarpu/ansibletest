@@ -2,8 +2,8 @@ stage('Deployment'){
     
 node ('Ansible control server') {
 
+   git credentialsId: 'e5cc0732-f47f-45c1-909a-160c7098485c', url: 'https://github.com/abhishekpolavarpu/ansibletest.git'
   
-   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', refspec: '+refs/tags/*:refs/remotes/origin/tags/*', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])
    sh 'sudo cp *.yml /home/jenkins/Ansible'
    
 }
