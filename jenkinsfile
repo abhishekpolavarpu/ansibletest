@@ -7,6 +7,17 @@ stage('Deployment'){
    git url: 'https://github.com/abhishekpolavarpu/ansibletest'
    env.GIT_TAG_NAME = gitTagName()
    env.GIT_TAG_MESSAGE = gitTagMessage()
+   
+   String gitTagName() {
+    commit = getCommit()
+    if (commit) {
+        desc = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+        if (isTag(desc)) {
+            return desc
+        }
+    }
+    return null
+}
 
 }
 stage('archiving'){
