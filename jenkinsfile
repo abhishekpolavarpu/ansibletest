@@ -7,6 +7,8 @@ stage('Deployment'){
 }
 stage('archiving'){
  zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: '1.zip'
+ sh ' cp *.zip /home/jenkins/Ansible/'
+ sh 'rm -rf *'
 }
 
 }
