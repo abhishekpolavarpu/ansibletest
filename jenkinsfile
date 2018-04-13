@@ -6,7 +6,7 @@ stage('Deployment'){
    git credentialsId: 'e5cc0732-f47f-45c1-909a-160c7098485c', url: 'https://github.com/abhishekpolavarpu/ansibletest.git'  
 }
 stage('archiving'){
-archive '/ansibletest_pipeline/*'
+ zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: '1.zip'
 }
 
 }
