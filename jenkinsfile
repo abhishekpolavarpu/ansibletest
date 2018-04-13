@@ -3,7 +3,7 @@ stage('Deployment'){
 node ('Ansible control server') {
 
    git credentialsId: 'e5cc0732-f47f-45c1-909a-160c7098485c', url: 'https://github.com/abhishekpolavarpu/ansibletest.git'
-   archiveArtifacts '*.yml'
+   archiveArtifacts '*'
   
    
 }
