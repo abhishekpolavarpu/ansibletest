@@ -6,7 +6,11 @@ node ('Ansible control server') {
 stage('Deployment'){
    checkout([$class: 'GitSCM', branches: [[name: 'refs/tags/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', refspec: '+refs/tags/*:refs/remotes/origin/tags/*', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])
  
-   tag = VersionNumber projectStartDate: '', versionNumberString: ' BUILD_DATE_FORMATTED', versionPrefix: '', worstResultForIncrement: 'SUCCESS'
+   tag = env.BN = VersionNumber([
+        versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}', 
+        projectStartDate : '2017-02-09', 
+        versionPrefix : 'v1.'
+    ])
  }
 
 stage('archiving'){
