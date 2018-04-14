@@ -17,7 +17,7 @@ stage('archiving'){
     ])
     echo "${tag}"
  zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: '1.zip'
- sh 'mv 1.zip ${tag}.zip'
+ sh 'mv 1.zip $(tag).zip'
  sh ' sudo cp *.zip /home/jenkins/Ansible/'
  sh 'sudo rm -rf *'
  }
