@@ -10,11 +10,7 @@ stage('Deployment'){
 
 stage('archiving'){
 
-   tag = VersionNumber([
-        versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}', 
-        projectStartDate : '2017-02-09', 
-        versionPrefix : 'v1.'
-    ])
+   tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-develop-${BUILDS_TODAY}')
     echo "${tag}"
  zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: 'artifact.zip'
  sh "mv artifact.zip '$tag'.zip"
