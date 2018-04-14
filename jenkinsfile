@@ -5,38 +5,15 @@ node ('Ansible control server') {
 
 stage('Deployment'){
    checkout([$class: 'GitSCM', branches: [[name: 'refs/tags/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', refspec: '+refs/tags/*:refs/remotes/origin/tags/*', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])
-   git_url: https://github.com/abhishekpolavarpu/ansibletest
-   env.GIT_TAG_NAME = gitTagName()
-   
-
-}
+ }
 
 stage('archiving'){
  zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: '{{ env.GIT_TAG_NAME }}.zip'
  sh ' sudo cp *.zip /home/jenkins/Ansible/'
  sh 'sudo rm -rf *'
-}
-
-}
-
-String gitTagName() {
-    commit = getCommit()
-    if (commit) {
-        desc = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
-        if (isTag(desc)) {
-            return desc
-        }
-    }
-    return null
-    }
-    String getCommit() {
-    return sh(script: 'git rev-parse HEAD', returnStdout: true)?.trim()
-  }
- 
-@NonCPS
-boolean isTag(String desc) {
-    match = desc =~ /.+-[0-9]+-g[0-9A-Fa-f]{6,}$/
-    result = !match
-    match = null // prevent serialisation
-    return result
  }
+
+}
+
+ 
+
