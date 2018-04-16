@@ -10,6 +10,7 @@ stage('archiving'){
  sh "mv artifact.zip '$tag'.zip"
  sh ' sudo cp *.zip /home/jenkins/Ansible/'
  sh 'sudo rm -rf *'
+ echo "hello"
  }
 }
 
