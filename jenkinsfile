@@ -7,7 +7,7 @@ stage('Deployment'){
 stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
  
- sh "tar --exclude '/.git' --exclude './.zip' cvzf '$tag'.tgz ."
+ sh "tar --exclude='/.git' --exclude='./.zip' cvzf '$tag'.tgz ."
  sh ' sudo cp *.tgz /home/jenkins/Ansible/'
  sh ' sudo rm -rf *'
  }
