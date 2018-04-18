@@ -7,7 +7,9 @@ stage('Deployment'){
 stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
  zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: 'artifact.zip'
-
+ sh "tar cvzf '$tag'.tgz artifact.zip"
+ sh ' sudo cp *.tgz /home/jenkins/Ansible/'
+ sh ' sudo rm -rf *'
  }
 }
 
