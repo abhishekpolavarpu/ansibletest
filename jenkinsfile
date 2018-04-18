@@ -6,8 +6,8 @@ stage('Deployment'){
  }
 stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
- zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: 'artifact.tar'
- 
+ zip archive: true, dir: '/home/jenkins/workspace/ansibletest_pipeline', glob: '', zipFile: 'artifact.zip'
+
  }
 }
 
