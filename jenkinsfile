@@ -12,7 +12,7 @@ stage('archiving'){
  echo '${env.GIT_TAG_NAME}'
  sh "ls -al"
  sh "sudo rm -rf .git .zip README.md"
- sh "tar cvzf '$tagtemp'-'tag'.tgz ."
+ sh "tar cvzf '$tagtemp'-'$tag'.tgz ."
  sh ' sudo cp *.tgz /home/jenkins/Ansible/'
  sh ' sudo rm -rf *'
  }
