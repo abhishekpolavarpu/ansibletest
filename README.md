@@ -1,6 +1,5 @@
 
-linea
-lineb
+linec
 # ansibletest
 testing ansible playbook deployment
 
