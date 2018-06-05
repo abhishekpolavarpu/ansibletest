@@ -1,9 +1,4 @@
 
-sadasdsa
-line1
-line2
-line3
-line4
 # ansibletest
 testing ansible playbook deployment
 
