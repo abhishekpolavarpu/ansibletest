@@ -2,17 +2,19 @@
     
 node ('Ansible control server') {
 stage('Deployment'){
-   checkout([$class: 'GitSCM', branches: [[name: 'refs/tags/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', refspec: '+refs/tags/*:refs/remotes/origin/tags/*', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])
+   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'GitTagMessageExtension', useMostRecentTag: true]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])
  }
+def tagtemp = sh(returnStdout: true, script: "git tag --contains | head -1").trim()
+if (tagtemp){
 stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
  sh "ls -al"
  sh "sudo rm -rf .git .zip README.md"
- sh "tar cvzf '$tag'.tgz ."
+ sh "tar cvzf '$GIT_TAG_NAME'-'$tag'.tgz ."
  sh ' sudo cp *.tgz /home/jenkins/Ansible/'
  sh ' sudo rm -rf *'
  }
 }
-
+}
  
 
