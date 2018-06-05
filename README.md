@@ -1,5 +1,6 @@
 
 linea
+lineb
 # ansibletest
 testing ansible playbook deployment
 
