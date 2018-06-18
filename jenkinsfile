@@ -12,7 +12,7 @@ stage('archiving'){
  sh "rm -rf .git .zip README.md"
  sh "tar cvzf '$tagName'-'$tag'.tgz ."
  sh "ls -al"
- sh "ls | grep -v *.tgz | xargs rm -rf"
+ sh "ls | grep -v *.tgz | xargs rm"
  sh "ls -al"
  }
  stage('testing')
