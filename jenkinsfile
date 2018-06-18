@@ -1,6 +1,6 @@
 
     
-node ('Ansible control server') {
+node () {
 stage('Deployment'){
    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])   
  }
@@ -12,7 +12,6 @@ stage('archiving'){
  sh "sudo rm -rf .git .zip README.md"
  sh "tar cvzf '$tagName'-'$tag'.tgz ."
  sh ' sudo cp *.tgz /home/jenkins/Ansible/'
- sh ' sudo rm -rf *'
  }
 }
 }
