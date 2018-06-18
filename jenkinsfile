@@ -11,9 +11,9 @@ stage('archiving'){
  sh "ls -al"
  sh "rm -rf .git .zip README.md"
  sh "tar cvzf '$tagName'-'$tag'.tgz ."
- sh 'cp *.tgz /home/jenkins/Ansible/'
  sh "ls -al"
- sh 'rm -rf *'
+ sh "ls | grep -v *.tgz | xargs rm"
+ sh "ls -al"
  }
 }
 }
