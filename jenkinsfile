@@ -9,7 +9,7 @@ if (tagName){
 stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
  sh "ls -al"
- sh "sudo rm -rf .git .zip README.md"
+ sh "rm -rf .git .zip README.md"
  sh "tar cvzf '$tagName'-'$tag'.tgz ."
  sh ' sudo cp *.tgz /home/jenkins/Ansible/'
  }
