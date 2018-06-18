@@ -8,14 +8,14 @@ def tagName = sh(returnStdout: true, script: "git tag --contains | head -1").tri
 if (tagName){
 stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
- sh '''
-   ls -al
-   rm -rf .git .zip README.md
-   tar cvzf '$tagName'-'$tag'.tgz .
-   sudo cp *.tgz /home/jenkins/Ansible/'
-   ls -al
-   rm -rf *
- '''
+ sh """
+ ls -al
+ rm -rf .git .zip README.md
+ tar cvzf '$tagName'-'$tag'.tgz .
+ sudo cp *.tgz /home/jenkins/Ansible/'
+ ls -al
+ rm -rf *
+ """
  }
 }
 }
