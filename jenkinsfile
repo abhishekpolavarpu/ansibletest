@@ -15,6 +15,9 @@ stage('archiving'){
  sh "ls | grep -v *.tgz | xargs rm"
  sh "ls -al"
  }
+ stage('testing')
+ sh "pwd"
+ ls -al
 }
 }
  
