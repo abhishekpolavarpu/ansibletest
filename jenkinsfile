@@ -17,7 +17,7 @@ stage('archiving'){
  }
  stage('testing')
  sh "pwd"
- ls -al
+ sh "ls -al"
 }
 }
  
