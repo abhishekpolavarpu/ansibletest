@@ -15,7 +15,6 @@ stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
  sh "ls -al"
  sh "rm -rf .git .zip README.md"
- vnum = '$tagName'-'$tag'.tgz
  sh "tar cvzf '$tagName'-'$tag'.tgz ."
  sh "ls -al"
  sh "ls | grep -v *.tgz | xargs rm"
