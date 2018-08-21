@@ -25,11 +25,10 @@ stage('archiving'){
  sh "pwd"
  sh "ls -al"
  }
- stage('CMdeploy')
- {
- sh 'ssh centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com rm -rf /home/centos/CSPlayBooks/'
- sh 'scp *.tgz centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com:/home/centos/CSPlayBooks/'
- sh 'ssh centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com tar -xvf /home/centos/CSPlayBooks/*.tgz'
+ stage('CMdeploy'){
+ sh "ssh centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com rm -rf /home/centos/CSPlayBooks/"
+ sh "scp *.tgz centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com:/home/centos/CSPlayBooks/"
+ sh "ssh centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com tar -xvf /home/centos/CSPlayBooks/*.tgz"
  }
 }
 }
