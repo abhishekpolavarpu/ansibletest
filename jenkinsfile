@@ -1,6 +1,11 @@
 
-    
+def vnum=''   
 node {
+properties(
+    [
+        pipelineTriggers([cron('* * * * *')]),
+    ]
+)
 stage('Deployment'){
    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a2cd37c2-f0d5-4b7d-b8f2-8c833088b186', url: 'git@github.com:abhishekpolavarpu/ansibletest.git']]])   
  }
@@ -10,14 +15,22 @@ stage('archiving'){
  tag = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyMMdd"}-${BUILDS_TODAY}')
  sh "ls -al"
  sh "rm -rf .git .zip README.md"
+ vnum = '$tagName'-'$tag'.tgz
  sh "tar cvzf '$tagName'-'$tag'.tgz ."
  sh "ls -al"
  sh "ls | grep -v *.tgz | xargs rm"
  sh "ls -al"
  }
- stage('testing')
+ stage('testing'){
  sh "pwd"
  sh "ls -al"
+ }
+ stage('CMdeploy')
+ {
+ sh 'ssh centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com rm -rf /home/centos/CSPlayBooks/'
+ sh 'scp *.tgz centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com:/home/centos/CSPlayBooks/'
+ sh 'ssh centos@ec2-18-217-117-71.us-east-2.compute.amazonaws.com tar -xvf /home/centos/CSPlayBooks/*.tgz'
+ }
 }
 }
  
